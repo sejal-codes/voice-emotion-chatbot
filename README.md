@@ -1,33 +1,32 @@
-Voice Emotion Chatbot
+🎤 Voice Emotion Chatbot
 
-A voice-based emotion detection chatbot built with Python (Flask).
-It detects emotions like happy, sad, neutral from voice input and responds accordingly.
+A voice-based emotion detection chatbot built with Python (Flask). Upload your voice, and it detects emotions like happy, sad, or neutral, then responds naturally. Perfect portfolio-ready backend project for beginners.
 
-Features
+🚀 Features
 
-Upload a WAV or MP3 audio file.
+🎧 Upload WAV or MP3 audio files.
 
-Detects emotions using pitch and energy analysis.
+🧠 Detect emotions using pitch & energy analysis.
 
-Generates simple chatbot responses based on detected emotion.
+💬 Generates chatbot responses based on emotion.
 
-Lightweight Flask backend with file upload support.
+⚡ Lightweight Flask backend with file upload support.
 
-Optional: Can integrate with a frontend for live voice input.
+🌐 Optional: Integrates with a frontend for live voice input.
 
-How It Works
+🧩 How It Works
 
-The user uploads a voice file (.wav or .mp3) via the /chat endpoint.
+User uploads a voice file via /chat endpoint.
 
-The backend:
+Backend processes the file:
 
-Converts MP3 to WAV if needed.
+Converts MP3 → WAV if needed.
 
 Extracts audio features using librosa.
 
-Classifies emotion using a simple pitch + energy-based algorithm.
+Classifies emotion with a pitch + energy-based algorithm.
 
-Returns a JSON response with:
+Returns JSON response like:
 
 {
   "emotion": "happy",
@@ -35,58 +34,26 @@ Returns a JSON response with:
   "transcript": ""
 }
 
-Requirements
+⚙️ Requirements
 
 Python 3.9+
 
-Flask
+Libraries: Flask, Flask-CORS, NumPy, librosa, pydub
 
-Flask-CORS
+💡 Tip: For MP3 support, install ffmpeg. On macOS older versions, MacPorts
+ may be needed.
 
-NumPy
-
-librosa
-
-pydub
-
-Install dependencies with:
+Install dependencies:
 
 pip3 install -r requirements.txt
 
+📝 Usage
 
-⚠️ Note: For MP3 support, you need ffmpeg installed. On macOS, consider using MacPorts since Homebrew may not work on older versions.
-
-Usage
-
-Start the backend server:
+Start backend server:
 
 python3 app.py
 
 
-Send a test audio:
+Send a test audio file:
 
 curl -X POST -F "audio=@test_audio.wav" http://127.0.0.1:5000/chat
-
-
-You’ll get a JSON response with the detected emotion and chatbot reply.
-
-Project Structure
-voice_emotion_chatbot/
-│
-├── app.py                # Flask backend
-├── emotion_module.py     # Emotion detection logic
-├── requirements.txt      # Dependencies
-├── README.md
-└── uploads/              # Folder to store uploaded files
-
-Future Improvements (Optional)
-
-Live microphone input in the frontend.
-
-More advanced emotion detection using ML models.
-
-Multi-language support for speech-to-text.
-
-Author
-
-Sejal Solanki | First-year CS student | Portfolio-ready backend project
