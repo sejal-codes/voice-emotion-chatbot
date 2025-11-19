@@ -132,7 +132,7 @@ _______________________________________________
 
 
 
-Sejal Solanki | First-year CS student | Portfolio-ready backend project | LinkedIn🔗 https://www.linkedin.com/in/sejal-solanki-212b93367?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app
+Sejal Solanki | First-year CS student | Portfolio-ready backend project 
 
 
 
