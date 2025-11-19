@@ -1,30 +1,29 @@
 🎤 Voice Emotion Chatbot
 
-A voice-based emotion detection chatbot built with Python (Flask). Upload your voice, and it detects emotions like happy, sad, or neutral, then responds naturally. Perfect portfolio-ready backend project for beginners.
+A voice-based emotion detection chatbot built with Python (Flask). Upload your WAV audio, and it detects emotions like happy, sad, or neutral, then responds naturally.
+Perfect portfolio-ready backend project for beginners.
 
 🚀 Features
 
-🎧 Upload WAV or MP3 audio files.
+🎧 Upload WAV audio files.
 
 🧠 Detect emotions using pitch & energy analysis.
 
-💬 Generates chatbot responses based on emotion.
+💬 Generates chatbot responses based on detected emotion.
 
 ⚡ Lightweight Flask backend with file upload support.
 
-🌐 Optional: Integrates with a frontend for live voice input.
+🌐 Optional: Can integrate with a frontend for live voice input.
 
 🧩 How It Works
 
-User uploads a voice file via /chat endpoint.
+User uploads a WAV file via /chat endpoint.
 
 Backend processes the file:
 
-Converts MP3 → WAV if needed.
-
 Extracts audio features using librosa.
 
-Classifies emotion with a pitch + energy-based algorithm.
+Classifies emotion with a simple pitch + energy-based algorithm.
 
 Returns JSON response like:
 
@@ -40,12 +39,12 @@ Python 3.9+
 
 Libraries: Flask, Flask-CORS, NumPy, librosa, pydub
 
-💡 Tip: For MP3 support, install ffmpeg. On macOS older versions, MacPorts
- may be needed.
-
 Install dependencies:
 
 pip3 install -r requirements.txt
+
+
+⚠️ Note: Currently, only WAV files are supported. MP3 support requires ffmpeg installation, which is not included due to system limitations.
 
 📝 Usage
 
@@ -57,3 +56,26 @@ python3 app.py
 Send a test audio file:
 
 curl -X POST -F "audio=@test_audio.wav" http://127.0.0.1:5000/chat
+
+
+You’ll get a JSON response with detected emotion and chatbot reply.
+
+📂 Project Structure
+voice_emotion_chatbot/
+├── app.py              # Flask backend
+├── emotion_module.py   # Emotion detection logic
+├── requirements.txt    # Dependencies
+├── README.md
+└── uploads/            # Uploaded WAV files
+
+🌟 Future Improvements (Optional)
+
+🎤 Live microphone input in frontend.
+
+🤖 Advanced emotion detection using ML models.
+
+🌍 Multi-language support for speech-to-text.
+
+🖋 Author
+
+Sejal Solanki | First-year CS student | Portfolio-ready backend project
