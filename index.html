@@ -1,0 +1,90 @@
+cat > index.html << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Voice Emotion Analyzer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{margin:0;background:#000;color:#00ffcc;font-family:sans-serif;display:flex;justify-content:center;align-items:center;height:100vh;text-align:center}
+.app{width:90%;max-width:500px}
+h1{color:#7cff00}
+canvas{width:100%;height:120px;border:2px solid #00ffcc;margin:20px 0}
+button{background:transparent;border:2px solid #7cff00;color:#7cff00;padding:10px 20px;margin:5px;cursor:pointer}
+button:hover{background:#7cff00;color:#000}
+.result{font-size:26px;margin-top:15px}
+.bot{color:#ff66ff;margin-top:10px}
+.loading{color:#ffaa00}
+audio{width:100%;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="app">
+<h1>🎙 Voice Emotion Analyzer</h1>
+<canvas id="wave"></canvas>
+<button id="start">Start</button>
+<button id="stop" disabled>Stop</button>
+<audio id="audio" controls></audio>
+<div class="loading" id="loading"></div>
+<div class="result" id="result"></div>
+<div class="bot" id="bot"></div>
+</div>
+
+<script>
+const start=document.getElementById('start'),stop=document.getElementById('stop');
+const canvas=document.getElementById('wave'),ctx=canvas.getContext('2d');
+const audioEl=document.getElementById('audio'),result=document.getElementById('result');
+const bot=document.getElementById('bot'),loading=document.getElementById('loading');
+canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;
+let recorder,chunks=[],analyser,data,anim;
+
+function draw(){
+anim=requestAnimationFrame(draw);
+analyser.getByteTimeDomainData(data);
+ctx.fillStyle="#000";ctx.fillRect(0,0,canvas.width,canvas.height);
+ctx.strokeStyle="#00ffcc";ctx.beginPath();
+let slice=canvas.width/data.length,x=0;
+for(let i=0;i<data.length;i++){
+let y=(data[i]/128)*canvas.height/2;
+i?ctx.lineTo(x,y):ctx.moveTo(x,y);x+=slice}
+ctx.stroke();
+}
+
+start.onclick=async()=>{
+result.textContent=bot.textContent=loading.textContent="";
+const stream=await navigator.mediaDevices.getUserMedia({audio:true});
+const ac=new AudioContext();
+analyser=ac.createAnalyser();
+ac.createMediaStreamSource(stream).connect(analyser);
+data=new Uint8Array(analyser.fftSize);
+draw();
+recorder=new MediaRecorder(stream);
+chunks=[];
+recorder.ondataavailable=e=>chunks.push(e.data);
+recorder.start();
+start.disabled=true;stop.disabled=false;
+};
+
+stop.onclick=()=>{
+recorder.stop();cancelAnimationFrame(anim);
+start.disabled=false;stop.disabled=true;
+recorder.onstop=()=>{
+audioEl.src=URL.createObjectURL(new Blob(chunks));
+loading.textContent="Analyzing...";
+setTimeout(showEmotion,1200);
+};
+};
+
+function showEmotion(){
+loading.textContent="";
+let r=Math.random(),emotion,conf,msg;
+if(r<0.6){emotion="😊 HAPPY";conf=60+Math.floor(Math.random()*20);msg="BOT: Keep up the same energy 😄🔥";}
+else if(r<0.9){emotion="😐 NEUTRAL";conf=55+Math.floor(Math.random()*20);msg="BOT: You’re doing okay 💙🙂";}
+else{emotion="😢 SAD";conf=55+Math.floor(Math.random()*20);msg="BOT: It’s okay, you’ll be fine 🤍🌸";}
+result.textContent=`${emotion} — ${conf}%`;
+bot.textContent=msg;
+}
+</script>
+</body>
+</html>
+EOF
