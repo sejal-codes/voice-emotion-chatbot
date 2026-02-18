@@ -222,14 +222,7 @@ Developed as part of an Innovation & Design Thinking Project, applying empathy-d
 
 ---
 
-👩‍💻 Author
 
-Sejal Solanki
-Computer Science Undergraduate
-Cloud & AI/ML Enthusiast
-
-
----
 
 📜 License
 
